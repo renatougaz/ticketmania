@@ -1,6 +1,8 @@
 package com.renato.ticketmania.service;
 
 import com.renato.ticketmania.dto.TicketDto;
+import com.renato.ticketmania.exception.ErrorMessage;
+import com.renato.ticketmania.exception.TicketNotFoundException;
 import com.renato.ticketmania.repository.TicketRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,8 @@ public class TicketService {
 
     public TicketDto getTicket(UUID id) {
         return repository.findById(id)
-                .orElseThrow(RuntimeException::new).toDto();
+                .map(Ticket::toDto)
+                .orElseThrow(() -> new TicketNotFoundException(new ErrorMessage("Ticket not found")));
     }
 
     public List<TicketDto> getAllTickets() {
