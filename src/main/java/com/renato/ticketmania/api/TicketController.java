@@ -28,7 +28,7 @@ public class TicketController {
         return result;
     }
 
-    @GetMapping("/ticket/{id}")
+    @GetMapping("/{id}")
     public TicketDto getTicketDto(@PathVariable("id") UUID id) {
         return service.getTicket(id);
     }
