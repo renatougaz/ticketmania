@@ -29,9 +29,7 @@ public class Ticket {
     String description;
     String stage;
 //    List<String> tags;
-//    List<String> comments;
-
-    public Ticket() {}
+////    List<String> comments;
 
     public TicketDto toDto() {
         var ticket =  new TicketDto(
