@@ -29,8 +29,13 @@ public class TicketController {
     }
 
     @GetMapping("/{id}")
-    public TicketDto getTicketDto(@PathVariable("id") UUID id) {
+    public TicketDto getTicket(@PathVariable("id") UUID id) {
         return service.getTicket(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public TicketDto deleteTicket(@PathVariable("id") UUID id) {
+        return service.deleteTicket(id);
     }
 
     @GetMapping("/all")

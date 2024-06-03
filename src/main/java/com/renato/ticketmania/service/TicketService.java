@@ -31,6 +31,16 @@ public class TicketService {
                 .orElseThrow(() -> new TicketNotFoundException(new ErrorMessage("Ticket not found")));
     }
 
+    public TicketDto deleteTicket(UUID id) {
+        var ticket = repository.findById(id)
+                .orElseThrow(() -> new TicketNotFoundException(new ErrorMessage("Ticket not found")));
+
+        repository.delete(ticket);
+
+        return ticket.toDto();
+
+    }
+
     public List<TicketDto> getAllTickets() {
         return repository.findAll().stream().map(Ticket::toDto).toList();
     }
