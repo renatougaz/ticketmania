@@ -8,7 +8,17 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionAdvice {
     @ExceptionHandler(value = TicketNotFoundException.class)
-    public ResponseEntity<Object> handleNotFoundException(TicketNotFoundException ex) {
+    public ResponseEntity<ErrorMessage> handleNotFoundException(TicketNotFoundException ex) {
         return new ResponseEntity<>(ex.message, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = TagAlreadyExistsException.class)
+    public ResponseEntity<ErrorMessage> handleTagAlreadyExistsException(TagAlreadyExistsException ex) {
+        return new ResponseEntity<>(new ErrorMessage(ex.getMessage()), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(value = TagNotFoundException.class)
+    public ResponseEntity<ErrorMessage> handleTTagNotFoundException(TagNotFoundException ex) {
+        return new ResponseEntity<>(new ErrorMessage(ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }

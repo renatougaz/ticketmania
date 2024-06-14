@@ -5,5 +5,4 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class TicketNotFoundException extends RuntimeException {
     ErrorMessage message;
-
 }
