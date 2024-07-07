@@ -2,6 +2,8 @@ package com.renato.ticketmania.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.Value;
 
 import java.util.UUID;

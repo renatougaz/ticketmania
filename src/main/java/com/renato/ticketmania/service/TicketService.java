@@ -63,6 +63,9 @@ public class TicketService {
                 ticketDto.title(),
                 ticketDto.description(),
                 ticketDto.stage(),
+                ticketDto.author(),
+                ticketDto.assignee(),
+                ticketDto.important(),
                 tags,
                 emptyList()
         );

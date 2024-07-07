@@ -12,6 +12,9 @@ public record TicketDto(
         @NotBlank String title,
         String description,
         String stage,
+        String author,
+        String assignee,
+        Boolean important,
         @NotNull List<TagDto> tags,
         List<CommentDto> comments
 ) {

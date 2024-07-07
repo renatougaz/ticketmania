@@ -7,11 +7,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Setter;
 import lombok.Value;
 
 import java.util.UUID;
 
 @Entity
+@Setter
 @AllArgsConstructor
 public class Tag {
 

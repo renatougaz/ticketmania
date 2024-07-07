@@ -29,6 +29,9 @@ public class Ticket {
     String title;
     String description;
     String stage;
+    String author;
+    String assignee;
+    Boolean important;
     @ManyToMany List<Tag> tags;
     @OneToMany List<Comment> comments;
 
@@ -40,6 +43,9 @@ public class Ticket {
                 title,
                 description,
                 stage,
+                author,
+                assignee,
+                important,
                 tags.stream().map(Tag::toDto).toList(),
                 comments.stream().map(Comment::toDto).toList()
         );
