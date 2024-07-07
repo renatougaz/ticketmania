@@ -3,6 +3,7 @@ package com.renato.ticketmania.dao;
 import com.renato.ticketmania.dto.TicketDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jdk.jfr.MemoryAddress;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
@@ -28,22 +29,25 @@ public class Ticket {
     String title;
     String description;
     String stage;
-//    List<String> tags;
-//    List<String> comments;
+    String author;
+    String assignee;
+    Boolean important;
+    @ManyToMany List<Tag> tags;
+    @OneToMany List<Comment> comments;
 
-    public Ticket() {}
+    public Ticket(){}
 
     public TicketDto toDto() {
-        var ticket =  new TicketDto(
+        return new TicketDto(
                 id,
                 title,
                 description,
                 stage,
-                emptyList(),
-                emptyList()
+                author,
+                assignee,
+                important,
+                tags.stream().map(Tag::toDto).toList(),
+                comments.stream().map(Comment::toDto).toList()
         );
-
-        log.info("ticket id: {}", ticket.id());
-        return ticket;
     }
 }
