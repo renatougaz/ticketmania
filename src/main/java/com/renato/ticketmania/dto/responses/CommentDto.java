@@ -1,4 +1,4 @@
-package com.renato.ticketmania.dto;
+package com.renato.ticketmania.dto.responses;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

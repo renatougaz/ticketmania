@@ -1,22 +1,20 @@
-package com.renato.ticketmania.dto;
+package com.renato.ticketmania.dto.requests;
 
-
+import com.renato.ticketmania.dto.responses.TagDto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
-import java.util.UUID;
 
-public record TicketDto(
-        UUID id,
+public record CreateTicketDto(
         @NotBlank String title,
         String description,
         String stage,
         String author,
         String assignee,
         Boolean important,
-        @NotNull List<TagDto> tags,
-        List<CommentDto> comments
+        String pointsType,
+        String pointValue,
+        @NotNull List<TagDto> tags
 ) {
-
 }

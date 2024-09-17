@@ -1,8 +1,7 @@
 package com.renato.ticketmania.api;
 
-import com.renato.ticketmania.dto.TagDto;
+import com.renato.ticketmania.dto.responses.TagDto;
 import com.renato.ticketmania.service.TagService;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

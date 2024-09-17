@@ -1,21 +1,12 @@
 package com.renato.ticketmania.dao;
 
-import com.renato.ticketmania.dto.TicketDto;
+import com.renato.ticketmania.dto.responses.TicketDto;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jdk.jfr.MemoryAddress;
 import lombok.AllArgsConstructor;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.logging.Log;
-import org.hibernate.annotations.Type;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-
-import static java.util.Collections.emptyList;
-import static java.util.UUID.randomUUID;
 
 @Entity
 @Slf4j
@@ -32,6 +23,8 @@ public class Ticket {
     String author;
     String assignee;
     Boolean important;
+    String pointType;
+    String pointValue;
     @ManyToMany List<Tag> tags;
     @OneToMany List<Comment> comments;
 
@@ -46,6 +39,8 @@ public class Ticket {
                 author,
                 assignee,
                 important,
+                pointType,
+                pointValue,
                 tags.stream().map(Tag::toDto).toList(),
                 comments.stream().map(Comment::toDto).toList()
         );

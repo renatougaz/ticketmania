@@ -1,14 +1,12 @@
 package com.renato.ticketmania.dao;
 
-import com.renato.ticketmania.dto.TagDto;
+import com.renato.ticketmania.dto.responses.TagDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Setter;
-import lombok.Value;
 
 import java.util.UUID;
 
