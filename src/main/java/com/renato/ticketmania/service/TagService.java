@@ -1,7 +1,7 @@
 package com.renato.ticketmania.service;
 
 import com.renato.ticketmania.dao.Tag;
-import com.renato.ticketmania.dto.TagDto;
+import com.renato.ticketmania.dto.responses.TagDto;
 import com.renato.ticketmania.exception.TagAlreadyExistsException;
 import com.renato.ticketmania.exception.TagNotFoundException;
 import com.renato.ticketmania.repository.TagRepository;
