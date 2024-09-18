@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
@@ -19,24 +20,26 @@ public class TicketController {
     TicketService service;
 
     @PostMapping("/create")
-    public TicketDto createTicket(@Valid @RequestBody CreateTicketDto createTicketDto) {
-        var result = service.createTicket(createTicketDto);
-        log.info("createTicket returned ticket with title {} ", result.title());
-        return result;
+    public Mono<TicketDto> createTicket(@Valid @RequestBody CreateTicketDto createTicketDto) {
+        return service.createTicket(createTicketDto).map(result -> {
+            log.info("createTicket returned ticket with title {} ", result.title());
+            return result;
+            }
+        );
     }
 
     @GetMapping("/{id}")
-    public TicketDto getTicket(@PathVariable("id") UUID id) {
+    public Mono<TicketDto> getTicket(@PathVariable("id") UUID id) {
         return service.getTicket(id);
     }
 
     @DeleteMapping("/{id}")
-    public TicketDto deleteTicket(@PathVariable("id") UUID id) {
+    public Mono<TicketDto> deleteTicket(@PathVariable("id") UUID id) {
         return service.deleteTicket(id);
     }
 
     @GetMapping("/all")
-    public TicketListDto getAllTickets() {
+    public Mono<TicketListDto> getAllTickets() {
         return service.getAllTickets();
     }
 }

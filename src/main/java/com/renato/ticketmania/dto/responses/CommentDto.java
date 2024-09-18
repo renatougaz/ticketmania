@@ -8,7 +8,6 @@ import java.util.UUID;
 
 @AllArgsConstructor
 public class CommentDto {
-
     @NotBlank UUID id;
     @NotBlank String  content;
     @NotBlank LocalDateTime dateTime;

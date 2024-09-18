@@ -1,22 +1,21 @@
 package com.renato.ticketmania.dao;
 
 import com.renato.ticketmania.dto.responses.TagDto;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 
 import java.util.UUID;
 
-@Entity
 @Setter
+@Getter
 @AllArgsConstructor
 public class Tag {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     UUID id;
     String name;
 

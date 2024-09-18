@@ -17,4 +17,5 @@ public record CreateTicketDto(
         String pointValue,
         @NotNull List<TagDto> tags
 ) {
+
 }

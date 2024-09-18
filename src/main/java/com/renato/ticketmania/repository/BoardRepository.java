@@ -1,13 +1,12 @@
 package com.renato.ticketmania.repository;
 
-import com.renato.ticketmania.dao.Ticket;
-import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.renato.ticketmania.dao.Board;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
 @Repository
-public interface TicketRepository extends ReactiveMongoRepository<Ticket, UUID> {
-
-}
+public interface BoardRepository extends ReactiveMongoRepository<Board, UUID> { }

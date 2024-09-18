@@ -8,8 +8,9 @@ import com.renato.ticketmania.repository.TagRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-import java.util.List;
 import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
@@ -20,41 +21,40 @@ public class TagService {
     @Autowired
     TagRepository tagRepository;
 
-    public TagDto createTag(TagDto tagDto) {
+    public Mono<TagDto> createTag(TagDto tagDto) {
         if (tagRepository.findByName(tagDto.getName()).isPresent()){
             throw new TagAlreadyExistsException("Tag with name " + tagDto.getName() + " already exists");
         }
 
         log.info(tagDto.getName());
         var tag = new Tag(randomUUID(), tagDto.getName());
-        return tagRepository.save(tag).toDto();
+        return tagRepository.save(tag).map(Tag::toDto) ;
     }
 
-    public UUID deleteTag(UUID id){
-        var tag = findTagById(id);
-        tagRepository.delete(tag);
-        return id;
+    public Mono<UUID> deleteTag(UUID id){
+        return findTagById(id)
+            .switchIfEmpty(Mono.error(new TagNotFoundException("Entity not found with id: " + id)))
+            .flatMap(tag -> tagRepository.delete(tag)).map(_ -> id);
     }
 
-    public TagDto updateTag(UUID id, TagDto tagDto) {
+    public Mono<TagDto> updateTag(UUID id, TagDto tagDto) {
         if (tagDto.getId() != null && !id.equals(tagDto.getId())) {
             throw new RuntimeException("Ids do not match, check request");
         }
-
-        var tag = findTagById(id);
-        tag.setName(tagDto.getName());
-        tagRepository.save(tag);
-        return tag.toDto();
+        return findTagById(id)
+            .switchIfEmpty(Mono.error(new TagNotFoundException("Entity not found with id: " + id)))
+            .flatMap(tag -> {
+                tag.setName(tagDto.getName());
+                return tagRepository.save(tag);
+            }).map(Tag::toDto);
     }
 
-    public List<TagDto> getAll() {
-        return tagRepository.findAll().stream().map(Tag::toDto).toList();
+    public Flux<TagDto> getAll() {
+        return tagRepository.findAll().map(Tag::toDto);
     }
 
-    private Tag findTagById(UUID id) {
+    private Mono<Tag> findTagById(UUID id) {
         return tagRepository.findById(id)
-                .orElseThrow(
-                        () -> new TagNotFoundException("Tag with id " + id + " does not exist")
-                );
+            .switchIfEmpty(Mono.error(new TagNotFoundException("Entity not found with id: " + id)));
     }
 }

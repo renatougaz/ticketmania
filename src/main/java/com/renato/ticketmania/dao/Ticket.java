@@ -1,21 +1,20 @@
 package com.renato.ticketmania.dao;
 
 import com.renato.ticketmania.dto.responses.TicketDto;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.UUID;
 
-@Entity
+//@Entity
 @Slf4j
 @AllArgsConstructor
-@Table(name = "tickets")
+//@Table(name = "tickets")
 public class Ticket {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     UUID id;
     String title;
     String description;
@@ -25,8 +24,8 @@ public class Ticket {
     Boolean important;
     String pointType;
     String pointValue;
-    @ManyToMany List<Tag> tags;
-    @OneToMany List<Comment> comments;
+    List<Tag> tags;
+    List<Comment> comments;
 
     public Ticket(){}
 

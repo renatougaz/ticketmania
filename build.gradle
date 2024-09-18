@@ -1,4 +1,5 @@
 plugins {
+	id 'application'
 	id 'java'
 	id 'org.springframework.boot' version '3.3.0'
 	id 'io.spring.dependency-management' version '1.1.5'
@@ -8,7 +9,7 @@ group = 'com.renato'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '17'
+	sourceCompatibility = '21'
 }
 
 configurations {
@@ -23,14 +24,32 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.mongodb:mongodb-driver-reactivestreams'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.data:spring-data-r2dbc:3.3.4'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+application {
+	mainClass = 'com.renato.ticketmania.TicketmaniaApplication'
+}
+tasks.withType(JavaCompile).configureEach {
+	options.compilerArgs += "--enable-preview"
+}
+
+tasks.withType(Test).configureEach {
+	jvmArgs += "--enable-preview"
+}
+
+tasks.withType(JavaExec).configureEach {
+	jvmArgs += "--enable-preview"
 }
 
 tasks.named('test') {
