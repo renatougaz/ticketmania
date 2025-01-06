@@ -2,7 +2,7 @@ package com.renato.ticketmania.service;
 
 import com.renato.ticketmania.dao.Tag;
 import com.renato.ticketmania.dto.responses.TagDto;
-import com.renato.ticketmania.exception.TagAlreadyExistsException;
+import com.renato.ticketmania.exception.AlreadyExistsException;
 import com.renato.ticketmania.exception.TagNotFoundException;
 import com.renato.ticketmania.repository.TagRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +23,7 @@ public class TagService {
 
     public Mono<TagDto> createTag(TagDto tagDto) {
         if (tagRepository.findByName(tagDto.getName()).isPresent()){
-            throw new TagAlreadyExistsException("Tag with name " + tagDto.getName() + " already exists");
+            throw new AlreadyExistsException("Tag with name " + tagDto.getName() + " already exists");
         }
 
         log.info(tagDto.getName());

@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ExceptionAdvice {
     @ExceptionHandler(value = TicketNotFoundException.class)
     public ResponseEntity<ErrorMessage> handleNotFoundException(TicketNotFoundException ex) {
-        return new ResponseEntity<>(ex.message, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new ErrorMessage(ex.getMessage()), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value = TagAlreadyExistsException.class)
-    public ResponseEntity<ErrorMessage> handleTagAlreadyExistsException(TagAlreadyExistsException ex) {
+    @ExceptionHandler(value = AlreadyExistsException.class)
+    public ResponseEntity<ErrorMessage> handleTagAlreadyExistsException(AlreadyExistsException ex) {
         return new ResponseEntity<>(new ErrorMessage(ex.getMessage()), HttpStatus.CONFLICT);
     }
 

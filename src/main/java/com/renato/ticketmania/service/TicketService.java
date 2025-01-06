@@ -1,12 +1,11 @@
 package com.renato.ticketmania.service;
 
-import com.renato.ticketmania.dao.Ticket;
 import com.renato.ticketmania.dao.Tag;
+import com.renato.ticketmania.dao.Ticket;
 import com.renato.ticketmania.dto.requests.CreateTicketDto;
 import com.renato.ticketmania.dto.responses.TagDto;
 import com.renato.ticketmania.dto.responses.TicketDto;
 import com.renato.ticketmania.dto.responses.TicketListDto;
-import com.renato.ticketmania.exception.ErrorMessage;
 import com.renato.ticketmania.exception.TagNotFoundException;
 import com.renato.ticketmania.exception.TicketNotFoundException;
 import com.renato.ticketmania.repository.TagRepository;
@@ -14,14 +13,12 @@ import com.renato.ticketmania.repository.TicketRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
 import static java.util.Collections.emptyList;
 import static java.util.UUID.randomUUID;
-import static org.apache.logging.log4j.ThreadContext.isEmpty;
 
 @Service
 @AllArgsConstructor
@@ -40,12 +37,12 @@ public class TicketService {
     public Mono<TicketDto> getTicket(UUID id) {
         return ticketRepository.findById(id)
                 .map(Ticket::toDto)
-                .switchIfEmpty(Mono.error(new TicketNotFoundException(new ErrorMessage("Ticket not found"))));
+                .switchIfEmpty(Mono.error(new TicketNotFoundException("Ticket not found")));
     }
 
     public Mono<TicketDto> deleteTicket(UUID id) {
         return ticketRepository.findById(id)
-                .switchIfEmpty(Mono.error(new TicketNotFoundException(new ErrorMessage("Ticket not found"))))
+                .switchIfEmpty(Mono.error(new TicketNotFoundException("Ticket not found")))
                 .flatMap(ticket -> ticketRepository.delete(ticket).map(_ -> ticket.toDto()));
     }
 
